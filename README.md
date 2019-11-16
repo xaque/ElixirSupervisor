@@ -44,13 +44,13 @@ If any process fails, the supervisor should restart it and all dependencies. E.g
                                                |     (one_for_all)    |
                                                |      /       \       |
                                                |   User      Order    |
-                                               |______________________|                                            
+                                               |______________________|
 ```
 
 There are 4 supervisors to handle the dependency graph how we want. If any process dies, it will be brought back up (save for the TopSupervisor).
 
 ## Testing
-You can start the program in `iex` by running the following:
+You can start the application in `iex` by running the following:
 
 ```
 c("app.exs")
