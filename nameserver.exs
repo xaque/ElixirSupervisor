@@ -23,36 +23,31 @@ defmodule NameServer do
   end
   #End Helper Functions
 
-
-
+  # Initialize name/pid map
   def init(_) do
-    #This would be a good place to start a new data structure for keeping pid names
-    #Your code here
+    {:ok, %{}}
   end
 
-  def handle_call(first_thing,second_thing,third_thing ) do
-    
-    #Change the parameter names appropriately
-    #Your code here
-    
+  # Register name with pid from calling process
+  def handle_call({:register, name}, {pid, _from}, state) do
+    {:reply, :ok, Map.put(state, name, pid)}
   end
 
-  def handle_call(first_thing,second_thing,third_thing) do
-    
-    #Change the parameter names appropriately
-    #Your code here
-    
+  # Resolve pid from name
+  def handle_call({:resolve, name}, _from, state) do
+    pid = if state[name] do
+            state[name]
+          else
+            :error
+          end
+    {:reply, pid, state }
   end
 
-  def handle_cast(first_thing,second_thing ) do
-    
-    #Change the parameter names appropriately
-    #Your code here
-    
+  # Register name with given pid asynchronously
+  def handle_cast({:register, name, pid}, state) do
+    {:noreply, Map.put(state, name, pid)}
   end
   
-
-
 
   def handle_call(request, from, state) do
     super(request, from, state)
